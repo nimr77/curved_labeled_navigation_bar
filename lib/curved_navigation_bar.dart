@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:curved_labeled_navigation_bar/src/nav_bar_item_widget.dart';
+import 'package:curved_labeled_navigation_bar/src/types.dart';
 import 'package:flutter/material.dart';
 
 import 'src/nav_custom_painter.dart';
@@ -54,6 +55,8 @@ class CurvedNavigationBar extends StatefulWidget {
 
   final List<Shadow> shadows;
 
+  final AnimtaionsType animtaionsType;
+
   CurvedNavigationBar({
     Key? key,
     required this.items,
@@ -69,6 +72,7 @@ class CurvedNavigationBar extends StatefulWidget {
     this.elevationMainButton = 10.0,
     this.shadowColor,
     this.shadows = const <Shadow>[],
+    this.animtaionsType = AnimtaionsType.scale,
     double? height,
   })  : assert(items.isNotEmpty),
         assert(0 <= index && index < items.length),
@@ -120,6 +124,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
       final newPosition = widget.index / _length;
       _startingPos = _pos;
       _endingIndex = widget.index;
+
       _animationController.animateTo(
         newPosition,
         duration: widget.animationDuration,

@@ -1,0 +1,1 @@
+enum AnimtaionsType { scale, position }
