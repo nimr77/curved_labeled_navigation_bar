@@ -67,7 +67,7 @@ class CurvedNavigationBar extends StatefulWidget {
     this.onTap,
     _LetIndexPage? letIndexChange,
     this.animationCurve = Curves.easeOut,
-    this.animationDuration = const Duration(milliseconds: 600),
+    this.animationDuration = const Duration(milliseconds: 400),
     this.iconPadding = 12.0,
     this.elevationMainButton = 10.0,
     this.shadowColor,
@@ -95,6 +95,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
   int _endingIndex = 0;
   double _buttonHide = 0;
 
+  late int _currentViewIndex = widget.index;
   @override
   void initState() {
     super.initState();
@@ -110,6 +111,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
         final middle = (endingPos + _startingPos) / 2;
         if ((endingPos - _pos).abs() < (_startingPos - _pos).abs()) {
           _icon = widget.items[_endingIndex].child;
+          _currentViewIndex = _endingIndex;
         }
         _buttonHide =
             (1 - ((middle - _pos) / (_startingPos - middle)).abs()).abs();
@@ -151,7 +153,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
         children: <Widget>[
           // Selected button
           Positioned(
-            bottom: widget.height - 105.0,
+            bottom: widget.height - 30.0,
             left: Directionality.of(context) == TextDirection.rtl
                 ? null
                 : _pos * size.width,
@@ -160,9 +162,15 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                 : null,
             width: size.width / _length,
             child: Center(
-              child: Transform.translate(
-                offset: Offset(0, (_buttonHide - 1) * 80),
+              child: AnimatedSwitcher(
+                duration: widget.animationDuration * 0.7,
+                switchInCurve: Curves.easeInCubic,
+                transitionBuilder: (child, animation) => FadeTransition(
+                  opacity: animation,
+                  child: ScaleTransition(scale: animation, child: child),
+                ),
                 child: Material(
+                  key: ValueKey(_currentViewIndex),
                   color: widget.buttonBackgroundColor ?? widget.color,
                   type: MaterialType.circle,
                   elevation: widget.elevationMainButton,
