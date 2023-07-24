@@ -48,6 +48,12 @@ class CurvedNavigationBar extends StatefulWidget {
   /// Check if [CurvedNavigationBar] has label.
   final bool hasLabel;
 
+  final double elevationMainButton;
+
+  final Color? shadowColor;
+
+  final List<Shadow> shadows;
+
   CurvedNavigationBar({
     Key? key,
     required this.items,
@@ -60,6 +66,9 @@ class CurvedNavigationBar extends StatefulWidget {
     this.animationCurve = Curves.easeOut,
     this.animationDuration = const Duration(milliseconds: 600),
     this.iconPadding = 12.0,
+    this.elevationMainButton = 10.0,
+    this.shadowColor,
+    this.shadows = const <Shadow>[],
     double? height,
   })  : assert(items.isNotEmpty),
         assert(0 <= index && index < items.length),
@@ -151,6 +160,9 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                 child: Material(
                   color: widget.buttonBackgroundColor ?? widget.color,
                   type: MaterialType.circle,
+                  elevation: widget.elevationMainButton,
+                  shadowColor: widget.shadowColor ??
+                      Theme.of(context).shadowColor.withOpacity(0.3),
                   child: Padding(
                     padding: EdgeInsets.all(widget.iconPadding),
                     child: _icon,
@@ -166,12 +178,12 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
             bottom: 0,
             child: CustomPaint(
               painter: NavCustomPainter(
-                startingLoc: _pos,
-                itemsLength: _length,
-                color: widget.color,
-                textDirection: Directionality.of(context),
-                hasLabel: widget.hasLabel,
-              ),
+                  startingLoc: _pos,
+                  itemsLength: _length,
+                  color: widget.color,
+                  textDirection: Directionality.of(context),
+                  hasLabel: widget.hasLabel,
+                  shadows: widget.shadows),
               child: Container(height: widget.height),
             ),
           ),

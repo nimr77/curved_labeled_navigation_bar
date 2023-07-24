@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 
@@ -11,11 +12,14 @@ class NavCustomPainter extends CustomPainter {
   bool hasLabel;
   TextDirection textDirection;
 
+  final List<Shadow> shadows;
+
   NavCustomPainter({
     required double startingLoc,
     required int itemsLength,
     required this.color,
     required this.textDirection,
+    required this.shadows,
     this.hasLabel = false,
   }) {
     final span = 1.0 / itemsLength;
@@ -55,6 +59,14 @@ class NavCustomPainter extends CustomPainter {
       ..lineTo(size.width, size.height)
       ..lineTo(0, size.height)
       ..close();
+
+    shadows.forEach((s) {
+      canvas.save();
+      canvas.translate(s.offset.dx, s.offset.dy);
+      canvas.drawShadow(path, s.color, sqrt(s.blurRadius), false);
+      canvas.restore();
+    });
+
     canvas.drawPath(path, paint);
   }
 
