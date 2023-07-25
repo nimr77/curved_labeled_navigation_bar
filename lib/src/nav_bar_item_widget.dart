@@ -35,7 +35,7 @@ class NavBarItemWidget extends StatelessWidget {
   }
 
   Widget _buildItem() {
-    if (label == null) {
+    if (label == null && labelWidget == null) {
       return Column(
         children: [
           Expanded(child: _buildIcon()),
