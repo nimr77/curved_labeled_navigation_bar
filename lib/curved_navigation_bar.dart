@@ -217,6 +217,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                     position: _pos,
                     length: _length,
                     index: widget.items.indexOf(item),
+                    labelWidget: item.labelBuilder?.call(_currentViewIndex, 0),
                     child:
                         Center(child: item.childBuilder(_currentViewIndex, 0)),
                     label: item.label,

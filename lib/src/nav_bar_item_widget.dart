@@ -11,6 +11,7 @@ class NavBarItemWidget extends StatelessWidget {
   final String? label;
   final TextStyle? labelStyle;
 
+  final Widget? labelWidget;
   NavBarItemWidget({
     required this.onTap,
     required this.position,
@@ -19,6 +20,7 @@ class NavBarItemWidget extends StatelessWidget {
     required this.child,
     this.label,
     this.labelStyle,
+    required this.labelWidget,
   });
 
   @override
@@ -48,7 +50,9 @@ class NavBarItemWidget extends StatelessWidget {
           flex: 1,
           child: Container(
             alignment: Alignment.center,
-            child: Text(label ?? '', style: labelStyle),
+            child: label == null
+                ? _buildTagger()
+                : Text(label ?? '', style: labelStyle),
           ),
         ),
         SizedBox(height: Platform.isIOS ? 20.0 : 10.0),
@@ -71,5 +75,9 @@ class NavBarItemWidget extends StatelessWidget {
         child: child,
       ),
     );
+  }
+
+  Widget _buildTagger() {
+    return labelWidget ?? SizedBox();
   }
 }

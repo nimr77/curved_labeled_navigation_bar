@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CurvedNavigationBarItem {
   /// Icon of [CurvedNavigationBarItem].
-  final Function(int, double) childBuilder;
+  final Widget Function(int, double) childBuilder;
 
   /// Text of [CurvedNavigationBarItem].
   final String? label;
@@ -10,9 +10,12 @@ class CurvedNavigationBarItem {
   /// TextStyle for [label].
   final TextStyle? labelStyle;
 
+  final Widget Function(int, double)? labelBuilder;
+
   const CurvedNavigationBarItem({
     required this.childBuilder,
     this.label,
     this.labelStyle,
+    this.labelBuilder,
   });
 }
