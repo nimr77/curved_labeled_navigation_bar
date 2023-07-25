@@ -99,7 +99,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
   @override
   void initState() {
     super.initState();
-    _icon = widget.items[widget.index].child;
+    _icon = widget.items[widget.index].childBuilder(_currentViewIndex, 0);
     _length = widget.items.length;
     _pos = widget.index / _length;
     _startingPos = widget.index / _length;
@@ -110,7 +110,10 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
         final endingPos = _endingIndex / widget.items.length;
         final middle = (endingPos + _startingPos) / 2;
         if ((endingPos - _pos).abs() < (_startingPos - _pos).abs()) {
-          _icon = widget.items[_endingIndex].child;
+          _icon = widget.items[_endingIndex].childBuilder(
+            _currentViewIndex,
+            _buttonHide,
+          );
           _currentViewIndex = _endingIndex;
         }
         _buttonHide =
@@ -214,7 +217,8 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                     position: _pos,
                     length: _length,
                     index: widget.items.indexOf(item),
-                    child: Center(child: item.child),
+                    child:
+                        Center(child: item.childBuilder(_currentViewIndex, 0)),
                     label: item.label,
                     labelStyle: item.labelStyle,
                   );

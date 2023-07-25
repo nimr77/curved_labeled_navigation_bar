@@ -21,23 +21,23 @@ class _BottomNavBarState extends State<BottomNavBar> {
         index: 0,
         items: [
           CurvedNavigationBarItem(
-            child: Icon(Icons.home_outlined),
+            childBuilder: (_, __) => Icon(Icons.home_outlined),
             label: 'Home',
           ),
           CurvedNavigationBarItem(
-            child: Icon(Icons.search),
+            childBuilder: (_, __) => Icon(Icons.search),
             label: 'Search',
           ),
           CurvedNavigationBarItem(
-            child: Icon(Icons.chat_bubble_outline),
+            childBuilder: (_, __) => Icon(Icons.chat_bubble_outline),
             label: 'Chat',
           ),
           CurvedNavigationBarItem(
-            child: Icon(Icons.newspaper),
+            childBuilder: (_, __) => Icon(Icons.newspaper),
             label: 'Feed',
           ),
           CurvedNavigationBarItem(
-            child: Icon(Icons.perm_identity),
+            childBuilder: (_, __) => Icon(Icons.perm_identity),
             label: 'Personal',
           ),
         ],
